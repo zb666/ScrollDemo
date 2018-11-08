@@ -3,7 +3,7 @@ package com.zhly.scrolldemo.adapter;
 import android.view.animation.Animation;
 
 /**
- * Created by zhly on 2018/11/8.
+ * Created by zb666 on 2018/11/8.
  */
 
 public abstract class AnimAdapter implements Animation.AnimationListener{

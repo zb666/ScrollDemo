@@ -13,10 +13,37 @@
 
     <com.zhly.scrolldemo.LoveLayout
         android:id="@+id/ll_float_demo"
-        android:gravity="bottom"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginBottom="30dp"
+        android:gravity="bottom">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingLeft="@dimen/dp_40"
+            android:text="点赞" />
+
+
+    </com.zhly.scrolldemo.LoveLayout>
+
+    <TextView
+        android:id="@+id/tv_demo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_circle" />
+
+    <TextView
+        android:id="@+id/tv_zan"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="+关注"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/bg_ovl" />
 
 </FrameLayout>

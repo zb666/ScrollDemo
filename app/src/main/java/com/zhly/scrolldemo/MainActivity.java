@@ -1,12 +1,20 @@
 package com.zhly.scrolldemo;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.widget.TextView;
 
 import com.zhly.scrolldemo.adapter.AnimAdapter;
 import com.zhly.scrolldemo.adapter.SplashAdapter;
@@ -28,13 +36,19 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView splashRv;
     @BindView(R.id.ll_float_demo)
     LoveLayout llFloatDemo;
+    @BindView(R.id.tv_demo)
+    TextView tvDemo;
+    @BindView(R.id.tv_zan)
+    TextView tvZan;
 
     private boolean isFinish = false;
 
     private boolean isStart = true;
-    private boolean isIDELFinish = false;
+
+    private boolean isAnimFinish = false;
 
     private List<String> mList = new ArrayList<>();
+    private Animation mStartAnim;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +63,13 @@ public class MainActivity extends AppCompatActivity {
         splashRv.setAdapter(splashAdapter);
         splashAdapter.setNewData(mList);
 
+        tvDemo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnimationSet animationSet = initAnimationSet();
+                v.startAnimation(animationSet);
+            }
+        });
         splashRv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, final int newState) {
@@ -81,6 +102,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tvZan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation startAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_scale);
+                tvZan.startAnimation(startAnim);
+            }
+        });
     }
 
     private void doAnim() {
@@ -101,8 +129,26 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.ll_float_demo)
     public void onViewClicked() {
-        llFloatDemo.startFloatAnim();
-        llFloatDemo.setClickable(false);
-
+        llFloatDemo.addLoveView();
+        if (mStartAnim != null) {
+            mStartAnim.reset();
+        }
     }
+
+    private AnimationSet initAnimationSet() {
+        AnimationSet as = new AnimationSet(true);
+        ScaleAnimation sa = new ScaleAnimation(1f, 2.3f, 1f, 2.3f,
+                ScaleAnimation.RELATIVE_TO_SELF, 0.5f,
+                ScaleAnimation.RELATIVE_TO_SELF, 0.5f);
+        sa.setDuration(1000);
+        sa.setRepeatCount(Animation.INFINITE);// 设置循环
+        AlphaAnimation aa = new AlphaAnimation(1, 0.1f);
+        aa.setDuration(1000);
+        aa.setRepeatCount(Animation.INFINITE);//设置循环
+        as.addAnimation(sa);
+        as.addAnimation(aa);
+        return as;
+    }
+
+
 }
