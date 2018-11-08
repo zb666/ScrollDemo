@@ -1,7 +1,10 @@
 package com.zhly.scrolldemo;
 
+import android.animation.AnimatorSet;
+import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -105,8 +108,14 @@ public class MainActivity extends AppCompatActivity {
         tvZan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Animation startAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.anim_scale);
-                tvZan.startAnimation(startAnim);
+
+                ObjectAnimator tv1BgAnimator = ObjectAnimator.ofInt(v, "BackgroundColor", Color.GREEN, Color.GRAY);
+                ObjectAnimator tv2TranslateY = ObjectAnimator.ofFloat(v, "translationX", 0, 400);
+
+                AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.playTogether(tv1BgAnimator, tv2TranslateY);
+                animatorSet.setDuration(1000).start();
+
             }
         });
     }

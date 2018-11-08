@@ -7,5 +7,8 @@
     <color name="colorWhite">#c7ecc5</color>
     <color name="colorWAVE">#df42a0</color>
     <color name="colorGreen">#4cf918</color>
+    <color name="colorlittleGreen">#94e77c</color>
+    <color name="colorShallowColor">#beeab0</color>
+    <color name="colorLitteGray">#e5efe3</color>
     <color name="colorGray">#b9b9b8</color>
 </resources>
