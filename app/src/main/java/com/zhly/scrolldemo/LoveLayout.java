@@ -34,8 +34,6 @@ import butterknife.ButterKnife;
  * 定义我们自己的布局
  */
 public class LoveLayout extends LinearLayout {
-
-
     private Context context;
     private LayoutParams params;
     private Drawable[] icons = new Drawable[4];
@@ -47,18 +45,15 @@ public class LoveLayout extends LinearLayout {
     public LoveLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
-        setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL);
         initView();
     }
 
     private void initView() {
-
         // 图片资源
         icons[0] = getResources().getDrawable(R.drawable.green);
         icons[1] = getResources().getDrawable(R.drawable.purple);
         icons[2] = getResources().getDrawable(R.drawable.red);
         icons[3] = getResources().getDrawable(R.drawable.yellow);
-
         // 插值器
         interpolators[0] = new AccelerateDecelerateInterpolator(); // 在动画开始与结束的地方速率改变比较慢，在中间的时候加速
         interpolators[1] = new AccelerateInterpolator();  // 在动画开始的地方速率改变比较慢，然后开始加速
@@ -68,9 +63,7 @@ public class LoveLayout extends LinearLayout {
         int width = icons[0].getIntrinsicWidth() / 2;
         int height = icons[0].getIntrinsicWidth() / 2;
         params = new LayoutParams(width, height);
-
-       LayoutInflater.from(getContext()).inflate(R.layout.scroll_weight, this);
-
+        LayoutInflater.from(getContext()).inflate(R.layout.scroll_weight, this);
     }
 
     @Override
@@ -87,13 +80,11 @@ public class LoveLayout extends LinearLayout {
             iv.setLayoutParams(params);
             iv.setImageDrawable(icons[1]);
             addView(iv);
-            // 开启动画，并且用完销毁
             AnimatorSet set = getAnimatorSet(iv);
             set.start();
             set.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    // TODO Auto-generated method stub
                     super.onAnimationEnd(animation);
                     removeView(iv);
                 }
@@ -132,7 +123,6 @@ public class LoveLayout extends LinearLayout {
      * 贝塞尔动画
      */
     private ValueAnimator getBzierAnimator(final ImageView iv) {
-        // TODO Auto-generated method stub
         PointF[] PointFs = getPointFs(iv); // 4个点的坐标
         BasEvaluator evaluator = new BasEvaluator(PointFs[1], PointFs[2]);
         ValueAnimator valueAnim = ValueAnimator.ofObject(evaluator, PointFs[0], PointFs[3]);
@@ -161,7 +151,7 @@ public class LoveLayout extends LinearLayout {
         PointFs[0].y = mHeight - params.height;
 
         PointFs[1] = new PointF(); // p1
-        PointFs[1].x = -new Random().nextInt(mWidth)/2;
+        PointFs[1].x = new Random().nextInt(mWidth) / 2;
         PointFs[1].y = new Random().nextInt(mHeight / 2) + mHeight / 2 + params.height;
 
         PointFs[2] = new PointF(); // p2
